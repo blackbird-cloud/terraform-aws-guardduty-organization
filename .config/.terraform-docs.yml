@@ -2,3 +2,35 @@ formatter: "markdown"
 
 header-from: ./.config/header.md
 footer-from: ./.config/footer.md
+
+output:
+  file: ./README.md
+  mode: replace
+  template: |-
+    {{ .Content }}
+
+sections:
+  hide:
+    - modules
+
+content: |-
+  # AWS GuardDuty Organization configuration Terraform module
+  A Terraform module which configures your AWS GuardDuty. https://docs.aws.amazon.com/guardduty/latest/ug/what-is-guardduty.html
+  {{ .Header }}
+
+  ## Example
+  ```hcl
+  {{ include "./example/main.tf" }}
+  ```
+
+  {{ .Requirements }}
+
+  {{ .Providers }}
+
+  {{ .Resources }}
+
+  {{ .Inputs }}
+
+  {{ .Outputs }}
+
+  {{ .Footer }}
