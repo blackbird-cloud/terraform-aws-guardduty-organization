@@ -56,7 +56,7 @@ resource "aws_guardduty_organization_configuration_feature" "eks_runtime_monitor
 
   additional_configuration {
     name        = "EKS_ADDON_MANAGEMENT"
-    auto_enable = "NEW"
+    auto_enable = var.auto_enable_organization_members
   }
 }
 
