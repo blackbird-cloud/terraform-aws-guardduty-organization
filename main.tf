@@ -107,3 +107,13 @@ resource "aws_guardduty_publishing_destination" "default" {
   destination_arn = var.publish_destination_s3_arn
   kms_key_arn     = var.publish_destination_kms_key_arn
 }
+
+resource "aws_guardduty_member" "members" {
+  for_each = var.members
+
+  account_id         = each.value.account_id
+  detector_id        = aws_guardduty_detector.default.id
+  email              = each.value.email
+  invite             = true
+  invitation_message = "please accept guardduty invitation"
+}

@@ -63,3 +63,12 @@ variable "publish_destination_kms_key_arn" {
   default     = ""
   description = "(Optional) The ARN of the KMS key used to encrypt GuardDuty findings. GuardDuty enforces this to be encrypted."
 }
+
+variable "members" {
+  type = map(object({
+    account_id = string
+    email      = string
+  }))
+  description = "List of member accounts to invite to GuardDuty"
+  default     = {}
+}
