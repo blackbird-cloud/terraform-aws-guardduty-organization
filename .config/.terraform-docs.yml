@@ -14,8 +14,8 @@ sections:
     - modules
 
 content: |-
-  # AWS GuardDuty Organization configuration Terraform module
-  A Terraform module which configures your AWS GuardDuty. https://docs.aws.amazon.com/guardduty/latest/ug/what-is-guardduty.html
+  {{ include "./.config/title.md"}}
+
   {{ .Header }}
 
   ## Example
