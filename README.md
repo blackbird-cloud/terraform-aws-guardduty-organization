@@ -70,7 +70,7 @@ module "guardduty" {
 | <a name="input_enable_ebs_malware_protection"></a> [enable\_ebs\_malware\_protection](#input\_enable\_ebs\_malware\_protection) | (Optional) If true, enables Malware Protection for all new accounts joining the organization. Defaults to `true`. | `bool` | `true` | no |
 | <a name="input_enable_eks_runtime_monitoring"></a> [enable\_eks\_runtime\_monitoring](#input\_enable\_eks\_runtime\_monitoring) | (Optional) If true, enables EKS GuardDuty Add-on for EKS protection. Defaults to `true`. | `bool` | `true` | no |
 | <a name="input_finding_publishing_frequency"></a> [finding\_publishing\_frequency](#input\_finding\_publishing\_frequency) | (Optional) Specifies the frequency of notifications sent for subsequent finding occurrences. If the detector is a GuardDuty member account, the value is determined by the GuardDuty primary account and cannot be modified, otherwise defaults to SIX\_HOURS. For standalone and GuardDuty primary accounts, it must be configured in Terraform to enable drift detection. Valid values for standalone and primary accounts: FIFTEEN\_MINUTES, ONE\_HOUR, SIX\_HOURS. Defaults to `SIX_HOURS`. | `string` | `"SIX_HOURS"` | no |
-| <a name="input_members"></a> [members](#input\_members) | List of member accounts to invite to GuardDuty | <pre>map(object({<br>    account_id = string<br>    email      = string<br>  }))</pre> | `{}` | no |
+| <a name="input_members"></a> [members](#input\_members) | List of member accounts to invite to GuardDuty | <pre>map(object({<br/>    account_id = string<br/>    email      = string<br/>  }))</pre> | `{}` | no |
 | <a name="input_publish_destination_kms_key_arn"></a> [publish\_destination\_kms\_key\_arn](#input\_publish\_destination\_kms\_key\_arn) | (Optional) The ARN of the KMS key used to encrypt GuardDuty findings. GuardDuty enforces this to be encrypted. | `string` | `""` | no |
 | <a name="input_publish_destination_s3_arn"></a> [publish\_destination\_s3\_arn](#input\_publish\_destination\_s3\_arn) | (Optional) The bucket arn and prefix under which the findings get exported. Bucket-ARN is required, the prefix is optional and will be `AWSLogs/[Account-ID]/GuardDuty/[Region]/` if not provided. | `string` | `""` | no |
 | <a name="input_scan_eks_audit_logs"></a> [scan\_eks\_audit\_logs](#input\_scan\_eks\_audit\_logs) | (Optional) If true, enables Kubernetes audit logs as a data source for Kubernetes protection. Defaults to `true`. | `bool` | `true` | no |
@@ -91,5 +91,5 @@ Checkout our other :point\_right: [terraform modules](https://registry.terraform
 
 ## Copyright
 
-Copyright © 2017-2024 [Blackbird Cloud](https://blackbird.cloud)
+Copyright © 2017-2025 [Blackbird Cloud](https://blackbird.cloud)
 <!-- END_TF_DOCS -->
