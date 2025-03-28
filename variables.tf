@@ -40,6 +40,12 @@ variable "scan_lambda_network_logs" {
   description = "(Optional) Lambda Protection helps you identify potential security threats when an AWS Lambda function gets invoked in your AWS environment. Defaults to `true`."
 }
 
+variable "enable_runtime_protection" {
+  type        = bool
+  default     = false
+  description = "(Optional) If true, enables Runtime monitoring for EKS and ECS. Conflicts with `enable_eks_runtime_monitoring` Defaults to `false`."
+}
+
 variable "finding_publishing_frequency" {
   type        = string
   description = "(Optional) Specifies the frequency of notifications sent for subsequent finding occurrences. If the detector is a GuardDuty member account, the value is determined by the GuardDuty primary account and cannot be modified, otherwise defaults to SIX_HOURS. For standalone and GuardDuty primary accounts, it must be configured in Terraform to enable drift detection. Valid values for standalone and primary accounts: FIFTEEN_MINUTES, ONE_HOUR, SIX_HOURS. Defaults to `SIX_HOURS`."

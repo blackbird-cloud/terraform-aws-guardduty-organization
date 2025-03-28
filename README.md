@@ -22,7 +22,8 @@ module "guardduty" {
   scan_s3_data_events           = true
   scan_eks_audit_logs           = true
   enable_ebs_malware_protection = true
-  enable_eks_runtime_monitoring = true
+  enable_eks_runtime_monitoring = false
+  enable_runtime_protection     = true # This will conflict with enable_eks_runtime_monitoring, it includes the eks runtime monitoring
   scan_rds_login_events         = true
   scan_lambda_network_logs      = true
 
@@ -39,13 +40,13 @@ module "guardduty" {
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 5.2 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 5.54 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | ~> 5.2 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 5.54 |
 
 ## Resources
 
@@ -59,6 +60,7 @@ module "guardduty" {
 | [aws_guardduty_organization_configuration_feature.eks_runtime_monitoring](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/guardduty_organization_configuration_feature) | resource |
 | [aws_guardduty_organization_configuration_feature.lambda_network_logs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/guardduty_organization_configuration_feature) | resource |
 | [aws_guardduty_organization_configuration_feature.rds_login_events](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/guardduty_organization_configuration_feature) | resource |
+| [aws_guardduty_organization_configuration_feature.runtime_protection](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/guardduty_organization_configuration_feature) | resource |
 | [aws_guardduty_organization_configuration_feature.s3_data_events](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/guardduty_organization_configuration_feature) | resource |
 | [aws_guardduty_publishing_destination.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/guardduty_publishing_destination) | resource |
 
@@ -69,8 +71,9 @@ module "guardduty" {
 | <a name="input_auto_enable_organization_members"></a> [auto\_enable\_organization\_members](#input\_auto\_enable\_organization\_members) | (Optional) Indicates the auto-enablement configuration of GuardDuty for the member accounts in the organization. Valid values are ALL, NEW, NONE. Defaults to `ALL`. | `string` | `"ALL"` | no |
 | <a name="input_enable_ebs_malware_protection"></a> [enable\_ebs\_malware\_protection](#input\_enable\_ebs\_malware\_protection) | (Optional) If true, enables Malware Protection for all new accounts joining the organization. Defaults to `true`. | `bool` | `true` | no |
 | <a name="input_enable_eks_runtime_monitoring"></a> [enable\_eks\_runtime\_monitoring](#input\_enable\_eks\_runtime\_monitoring) | (Optional) If true, enables EKS GuardDuty Add-on for EKS protection. Defaults to `true`. | `bool` | `true` | no |
+| <a name="input_enable_runtime_protection"></a> [enable\_runtime\_protection](#input\_enable\_runtime\_protection) | (Optional) If true, enables Runtime monitoring for EKS and ECS. Conflicts with `enable_eks_runtime_monitoring` Defaults to `false`. | `bool` | `false` | no |
 | <a name="input_finding_publishing_frequency"></a> [finding\_publishing\_frequency](#input\_finding\_publishing\_frequency) | (Optional) Specifies the frequency of notifications sent for subsequent finding occurrences. If the detector is a GuardDuty member account, the value is determined by the GuardDuty primary account and cannot be modified, otherwise defaults to SIX\_HOURS. For standalone and GuardDuty primary accounts, it must be configured in Terraform to enable drift detection. Valid values for standalone and primary accounts: FIFTEEN\_MINUTES, ONE\_HOUR, SIX\_HOURS. Defaults to `SIX_HOURS`. | `string` | `"SIX_HOURS"` | no |
-| <a name="input_members"></a> [members](#input\_members) | List of member accounts to invite to GuardDuty | <pre>map(object({<br>    account_id = string<br>    email      = string<br>  }))</pre> | `{}` | no |
+| <a name="input_members"></a> [members](#input\_members) | List of member accounts to invite to GuardDuty | <pre>map(object({<br/>    account_id = string<br/>    email      = string<br/>  }))</pre> | `{}` | no |
 | <a name="input_publish_destination_kms_key_arn"></a> [publish\_destination\_kms\_key\_arn](#input\_publish\_destination\_kms\_key\_arn) | (Optional) The ARN of the KMS key used to encrypt GuardDuty findings. GuardDuty enforces this to be encrypted. | `string` | `""` | no |
 | <a name="input_publish_destination_s3_arn"></a> [publish\_destination\_s3\_arn](#input\_publish\_destination\_s3\_arn) | (Optional) The bucket arn and prefix under which the findings get exported. Bucket-ARN is required, the prefix is optional and will be `AWSLogs/[Account-ID]/GuardDuty/[Region]/` if not provided. | `string` | `""` | no |
 | <a name="input_scan_eks_audit_logs"></a> [scan\_eks\_audit\_logs](#input\_scan\_eks\_audit\_logs) | (Optional) If true, enables Kubernetes audit logs as a data source for Kubernetes protection. Defaults to `true`. | `bool` | `true` | no |
@@ -91,5 +94,5 @@ Checkout our other :point\_right: [terraform modules](https://registry.terraform
 
 ## Copyright
 
-Copyright © 2017-2024 [Blackbird Cloud](https://blackbird.cloud)
+Copyright © 2017-2025 [Blackbird Cloud](https://blackbird.cloud)
 <!-- END_TF_DOCS -->
