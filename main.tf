@@ -100,6 +100,14 @@ resource "aws_guardduty_organization_configuration_feature" "lambda_network_logs
   auto_enable = var.auto_enable_organization_members
 }
 
+resource "aws_guardduty_organization_configuration_feature" "runtime_protection" {
+  count = var.enable_runtime_protection ? 1 : 0
+
+  detector_id = aws_guardduty_detector.default.id
+  name        = "RUNTIME_MONITORING"
+  auto_enable = var.auto_enable_organization_members
+}
+
 resource "aws_guardduty_publishing_destination" "default" {
   count = var.publish_destination_s3_arn != "" ? 1 : 0
 

@@ -14,7 +14,8 @@ module "guardduty" {
   scan_s3_data_events           = true
   scan_eks_audit_logs           = true
   enable_ebs_malware_protection = true
-  enable_eks_runtime_monitoring = true
+  enable_eks_runtime_monitoring = false
+  enable_runtime_protection     = true # This will conflict with enable_eks_runtime_monitoring, it includes the eks runtime monitoring
   scan_rds_login_events         = true
   scan_lambda_network_logs      = true
 
