@@ -124,4 +124,10 @@ resource "aws_guardduty_member" "members" {
   email              = each.value.email
   invite             = true
   invitation_message = "please accept guardduty invitation"
+
+  lifecycle {
+    ignore_changes = [
+      email
+    ]
+  }
 }
